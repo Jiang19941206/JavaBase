@@ -4,6 +4,7 @@ package com.jiangcl.javabase.staticp.singleton;
  * @author jiangcl
  * @date 2019/12/5
  * @desc 内部类实现单例模式
+ * https://www.cnblogs.com/castielangel/p/10370485.html (参考)
  */
 public class InnerSingleton {
     //将构造器声明为私有
