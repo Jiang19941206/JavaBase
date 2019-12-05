@@ -29,6 +29,10 @@ public class SingletonTest {
         LazySingleton lazySingleton1 = LazySingleton.getInstance();
         LazySingleton lazySingleton2 = LazySingleton.getInstance();
         System.out.println(lazySingleton1 == lazySingleton2);
+        //内部类实现
+        InnerSingleton innerInstance1 = InnerSingleton.getInstance();
+        InnerSingleton innerInstance2= InnerSingleton.getInstance();
+        System.out.println(innerInstance1 == innerInstance2);
     }
 
     @Test
