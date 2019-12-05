@@ -36,6 +36,5 @@ public class SingletonTest {
         //String desc = CodeBlock.desc;
         CodeBlock c1 = new CodeBlock();
         CodeBlock c2 = new CodeBlock();
-        CodeBlock.showA();
     }
 }
