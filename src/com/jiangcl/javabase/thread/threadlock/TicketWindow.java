@@ -31,9 +31,9 @@ public class TicketWindow implements Runnable {
                 break;
             }*/
             //改进，使用try—catch—finally
+            //加锁，加锁步骤需要放在try-catch外面，这样能保证在未获取到锁的情况下不执行释放锁的操作
+            lock.lock();
             try {
-                //加锁
-                lock.lock();
                 if(ticket > 0){
                     System.out.println(Thread.currentThread().getName() + "：售出的票号为：" + ticket);
                     ticket--;

@@ -12,12 +12,12 @@ public class RunnableTicket implements Runnable {
     @Override
     public void run() {
         while (true){
-            //synchronized (this){
+            synchronized (this){
                 if(ticket > 0){
                     System.out.println(Thread.currentThread().getName() + "：售出的票号为：" + ticket);
                     ticket--;
                 }else break;
-            //}
+            }
         }
     }
 }

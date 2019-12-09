@@ -46,3 +46,29 @@ setPriority(Thread.MAX_PRIORITY)：MAX_PRIORITY最高优先级，MIN_PRIORITY最
                   尽量减少同步资源的定义
                   尽量避免嵌套同步
 
+
+线程的通信
+        涉及到的三个方法
+                  wait()：当执行此方法后，线程会进入阻塞状态，并释放同步锁。
+                  notify()：当执行此方法后，会唤醒被wait的一个线程，如果有多个线程处于wait状态，则唤醒优先级高的那一个
+                  notifyAll()：当执行此方法后，会唤醒所有被wait的线程
+              注意：此三种方法只能在同步代码块或者同步方法中（使用Lock时不能使用此三种方法）。
+                    三个方法的调用者必须是同步方法或同步代码块的同步锁。
+
+        sleep()和wait()的异同
+                相同点：执行这两个方法都可以使当前线程进入阻塞状态
+                不同点：1、两个方法声明的位置不同，sleep是Thread类中的，wait是Obj中的。
+                        2、sleep可以在任何需要的场景下调用，wait只能用在同步方法或者同步代码块中。
+                        3、如果两个方法都在同步方法或者同步代码块中，sleep不会释放同步锁，wait会释放同步锁。
+
+
+线程池
+    创建一个指定数量的线程池
+    ExecutorService service = Executors.newFixedThreadPool(10);
+            service.submit()适用于实现Callable接口的线程
+            service.execute()适用于实现Runnable接口的线程
+
+
+总结：
+      创建线程的四种方式
+            继承Thread类，实现Runnable接口，实现Callable接口，使用线程池
