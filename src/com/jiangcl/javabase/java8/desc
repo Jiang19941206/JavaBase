@@ -1,0 +1,49 @@
+lambda表达式
+        本质：lambda表达式是函数式接口的实例，lambda表达式一定是依赖于函数式接口
+        Comparator<Integer> com = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return 0;
+            }
+        }
+        Comparator<Integer> com = (o1,o2) -> o1.compareTo(o2);
+        lambda表达式实质（Comparator接口的一个实例）
+        (o1,o2) -> o1.compareTo(o2) == new Comparator<Integer>() {
+                                                   @Override
+                                                   public int compare(Integer o1, Integer o2) {
+                                                       return o1.compareTo(o2);
+                                                   }
+                                               }
+        箭头("->")左边：参数信息，相当于是所重写的方法的参数
+        箭头("->")右边：表达式的执行语句，相当于是所重写的方法里面的语句
+                        当lambda表达式只有一条语句时，可以省略return和大括号
+                        当有return时，return和大括号要么都省略，要不都不省略
+
+
+函数式接口
+        定义：只有一个抽象方法的接口
+
+        Java内置的4大核心函数式接口
+            消费型：Consumer<T>    void accept(T t);
+            供给型：Supplier<T>    T get();
+            函数型：Function<T,R>  R apply(T t);
+            断定型：Predicate<T>   boolean test(T t);
+
+方法引用
+        使用情景：当要传递给lambda体的操作，已经有方法实现了，可以使用方法引用。
+
+        本质：方法引用本质就是lambda表达式，所以方法引用也是函数式接口的实例。
+
+        使用格式： 类（或者对象）:: 方法名
+                   调用格式分为下面三种情况
+                            一、对象 :: 非静态方法
+                            二、类 :: 静态方法
+                            三、类 :: 非静态方法
+         使用要求：函数式接口中抽象方法的参数列表和返回值类型必须与方法引用中的参数列表和返回值类型一致（只针对情况一和二）
+
+
+Stream Api
+        Stream的操作三个步骤
+            1、创建Stream对象
+            2、中间操作,一个中间操作链，对数据源的数据进行处理
+            3、终止操作，一旦执行终止操作，就执行中间操作链，并产生结果，之后，不会再被使用
