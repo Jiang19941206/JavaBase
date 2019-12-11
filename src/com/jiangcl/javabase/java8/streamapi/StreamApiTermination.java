@@ -2,8 +2,8 @@ package com.jiangcl.javabase.java8.streamapi;
 
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author jiangcl
@@ -62,6 +62,46 @@ public class StreamApiTermination {
      */
     @Test
     public void test2(){
+        List<Employee> employees = Employee.getEmployees();
+        //reduce(T identity, BinaryOperator<T> accumulator) 可以将流中的元素反复结合起来，得到一个值。返回T
+            //练习：计算1-10的自然数之和
+        List<Integer> is = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+        //identity：初始值。lambda表达式写法
+        Integer reduce = is.stream().reduce(0, (i1,i2)->Integer.sum(i1,i2));
+        //方法引用的写法
+        Integer reduce1 = is.stream().reduce(0, Integer::sum);
+        System.out.println(reduce);
+        System.out.println(reduce1);
+        System.out.println("*****************");
+        //reduce(BinaryOperator<T> accumulator)可以将流中的元素反复结合起来，得到一个值。返回Optional<T>
+            //练习：获取集合中所有员工的年龄总和
+        Optional<Integer> reduce2 = employees.stream().map(employee -> employee.getAge()).reduce(Integer::sum);
+        System.out.println(reduce2);
+    }
 
+    /**
+     * 收集
+     */
+    @Test
+    public void test3(){
+        /**
+         * collect(Collector c) 将流转换为其他形式，接收一个Collector接口的实现，用于给stream中的元素做汇总的方法
+         * 可以收集成一个List或Set或Map
+         */
+                //练习：找出年龄大于25的员工，并返回一个List
+        List<Employee> employees = Employee.getEmployees();
+        List<Employee> list = employees.stream().filter(employee -> employee.getAge() > 25).collect(Collectors.toList());
+        list.forEach(employee -> System.out.println(employee));
+        System.out.println("****************");
+                //练习：找出年龄小于等于25的员工，并返回一个Set
+        Set<Employee> set = employees.stream().filter(employee -> employee.getAge() <= 25).collect(Collectors.toSet());
+        set.forEach(employee -> System.out.println(employee));
+        System.out.println("****************");
+                //练习：找出年龄大于25的员工，并返回一个Map
+        Map<String, Employee> employeeMap = employees.stream().filter(employee -> employee.getAge() > 25).collect(Collectors.toMap(employee -> employee.getId().toString(), employee -> employee));
+        for (String s : employeeMap.keySet()) {
+            System.out.println(s);
+            System.out.println(employeeMap.get(s));
+        }
     }
 }
