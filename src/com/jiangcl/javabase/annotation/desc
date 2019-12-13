@@ -1,0 +1,21 @@
+自定义注解
+        1、注解声明为：@interface
+        2、内部定义成员，通常使用value
+        3、可以指定成员的默认值，使用default定义
+        4、如果自定义注解没有成员，表明一个标识作用
+
+JDK元注解
+        对现有的注解解释说明的注解
+        Retention：注解的生命周期
+            RetentionPolicy.SOURCE 编译时丢弃
+            RetentionPolicy.CLASS（默认状态） 保存在class文件中，但是在运行时不保留
+            RetentionPolicy.RUNTIME 运行时生效，只有生命为runtime的注解，才能通过反射获取
+        Target：注解类型，指定注解修饰的类型
+            TYPE：类
+            FIELD：属性
+            METHOD：方法
+            PARAMETER：参数
+            CONSTRUCTOR：构造器
+            LOCAL_VARIABLE：局部变量
+        Document：表示所修饰的注解在生成Java doc时保留该注解
+        Inherited：表示所修饰的注解具有继承性

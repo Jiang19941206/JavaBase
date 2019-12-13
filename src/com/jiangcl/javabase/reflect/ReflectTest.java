@@ -61,8 +61,7 @@ public class ReflectTest {
         Product product = clazz.newInstance();
         /**
          * 获取类的所有属性
-         * 由于一般类的属性都是private修饰的，所以需要用getDeclaredFields方法获取
-         * 如果属性是public修饰的则可以用getFields方法获取
+         * 尽量用getDeclaredFields方法获取
          */
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
