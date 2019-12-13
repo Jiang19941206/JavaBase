@@ -16,6 +16,10 @@ public class Person {
         return name;
     }
 
+    public String getPersonName(@MyAnnotation("李四") String name){
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Person{" +

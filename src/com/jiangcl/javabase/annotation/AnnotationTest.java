@@ -4,11 +4,12 @@ import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 /**
  * @author jiangcl
  * @date 2019/12/13
- * @desc 自定义注解练习
+ * @desc 获取注解上的值
  */
 public class AnnotationTest {
 
@@ -67,5 +68,28 @@ public class AnnotationTest {
         field.set(person,value);
 
         System.out.println(person);
+    }
+
+    /**
+     * 获取参数的注解信息
+     */
+    @Test
+    public void test4() throws Exception {
+        Class clazz = Person.class;
+
+        //获取方法
+        Method method = clazz.getDeclaredMethod("getPersonName",String.class);
+        //获取参数
+        Parameter[] parameters = method.getParameters();
+        String[] params = new String[parameters.length];
+        for (int i = 0;i < parameters.length ;i++) {
+            //获取参数的注解
+            MyAnnotation annotation = parameters[i].getAnnotation(MyAnnotation.class);
+            params[i] = annotation.value();
+        }
+
+        Person person = (Person) clazz.newInstance();
+        String str = (String) method.invoke(person, params);
+        System.out.println(str);
     }
 }
