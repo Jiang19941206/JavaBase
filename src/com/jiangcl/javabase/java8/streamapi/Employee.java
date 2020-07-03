@@ -15,6 +15,8 @@ public class Employee {
 
     private String name;
 
+    public Employee(){}
+
     public Employee(Integer id, Integer age, String name) {
         this.id = id;
         this.age = age;
@@ -54,6 +56,10 @@ public class Employee {
                 '}';
     }
 
+    public int compare(Employee employee){
+        return this.getAge().compareTo(employee.getAge());
+    }
+
     public static List<Employee> getEmployees(){
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1001,32,"tom"));
@@ -61,6 +67,9 @@ public class Employee {
         employees.add(new Employee(1003,27,"lucy"));
         employees.add(new Employee(1004,21,"stark"));
         employees.add(new Employee(1005,45,"jordan"));
+        employees.forEach(employee -> {
+            System.out.println(employee.getName());
+        });
         return employees;
     }
 }

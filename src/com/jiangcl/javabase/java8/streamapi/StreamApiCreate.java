@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -21,6 +23,8 @@ public class StreamApiCreate {
      */
     @Test
     public void test1(){
+        List<String> ls1 = Collections.synchronizedList(new ArrayList<>());
+        List<String> ls2 = new CopyOnWriteArrayList<>();
         List<String> strs = new ArrayList<>();
         //顺序流
         Stream<String> stream = strs.stream();

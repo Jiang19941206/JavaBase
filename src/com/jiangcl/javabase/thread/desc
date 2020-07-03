@@ -36,6 +36,10 @@ setPriority(Thread.MAX_PRIORITY)：MAX_PRIORITY最高优先级，MIN_PRIORITY最
         synchronized和Lock锁的异同
                     相同：二者都可以解决线程安全问题
                     不同：synchronized在执行完同步代码后会自动释放同步，Lock锁启动同步与释放同步都需要手动操作
+                          synchronized是Java关键字，Lock是一个类
+                          synchronized不可中断，只有当程序执行完成或者出现异常时自动退出
+                            Lock锁可以中断,可以使用tryLock(long timeout, TimeUnit unit)方法设置什么时候中断
+
         解决线程安全问题方式选择优先顺序：Lock锁（较为灵活） > 同步代码块 > 同步方法
 
 线程死锁

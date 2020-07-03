@@ -104,4 +104,12 @@ public class StreamApiTermination {
             System.out.println(employeeMap.get(s));
         }
     }
+
+    @Test
+    public void test4(){
+
+        List<Employee> employees = Employee.getEmployees();
+        employees = employees.stream().sorted(Employee::compare).collect(Collectors.toList());
+        System.out.println(employees);
+    }
 }

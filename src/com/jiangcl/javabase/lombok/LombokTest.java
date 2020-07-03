@@ -15,26 +15,13 @@ public class LombokTest {
 
     @Test
     public void test1(){
-        LombokDomain domain = LombokDomain.builder().name("张三")
-                                                    .age(21)
-                                                    .province("四川")
-                                                    .city("成都")
-                                                    .phone(13509807869l)
-                                                    .build();
-        System.out.println(domain);
+
     }
 
     @Test
     public void test2(){
         List<LombokDomain> lombokDomains = new ArrayList<>();
-        LombokDomain domain1 = new LombokDomain("zhangsan",21,"四川","成都",123l);
-        LombokDomain domain2 = new LombokDomain("lisi",21,"四川","成都",123l);
-        LombokDomain domain3 = new LombokDomain("wanguw",21,"四川","成都",123l);
-        LombokDomain domain4 = new LombokDomain("zhaoliu",21,"四川","成都",123l);
-        lombokDomains.add(domain1);
-        lombokDomains.add(domain2);
-        lombokDomains.add(domain3);
-        lombokDomains.add(domain4);
+
 
         /*lombokDomains = lombokDomains.stream().map(lombokDomain -> {
             lombokDomain.setCity("绵阳");
@@ -48,7 +35,6 @@ public class LombokTest {
     }
 
     public static LombokDomain getNewLombokDomain(LombokDomain lombokDomain){
-        lombokDomain.setCity("绵阳");
         return lombokDomain;
     }
 }
