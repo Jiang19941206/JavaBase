@@ -31,6 +31,7 @@ public class ServerThread implements Runnable {
 
                 String line = br.readLine();
                 if(line == null){
+                    System.out.println(socket.getInetAddress().getHostAddress() + ":" + socket.getPort() + "已退出");;
                     socket.close();
                     break;
                 }
