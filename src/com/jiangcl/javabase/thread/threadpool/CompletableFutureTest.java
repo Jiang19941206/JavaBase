@@ -1,9 +1,6 @@
 package com.jiangcl.javabase.thread.threadpool;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author jiangcl
@@ -14,11 +11,21 @@ import java.util.concurrent.TimeUnit;
  */
 public class CompletableFutureTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ExecutorService pool = Executors.newFixedThreadPool(8);
         System.out.println("主线程开始执行......");
+
+        /*System.out.println(method1(pool));
+        System.out.println(method2(pool));
+        System.out.println(method3(pool));*/
+
         CompletableFuture<String> f1 =  CompletableFuture.supplyAsync(()->{
             System.out.println("f1开始执行......");
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return "a";
         },pool).whenComplete((r,e)->{
             /**
@@ -29,6 +36,7 @@ public class CompletableFutureTest {
             System.out.println("f1的结果是：" + r);
             System.out.println(e);
         });
+
         CompletableFuture<Integer> f2 =  CompletableFuture.supplyAsync(()->{
             System.out.println("f2开始执行......");
             return 100;
@@ -36,21 +44,51 @@ public class CompletableFutureTest {
             System.out.println("f2的结果是：" + r);
             System.out.println(e);
         });
-        CompletableFuture<Integer> f3 =  CompletableFuture.supplyAsync(()->{
+
+        CompletableFuture<String> f3 =  CompletableFuture.supplyAsync(()->{
             System.out.println("f3开始执行......");
-            int i = 1/0;
-            return 100;
+            //int i = 1/0;
+            return "f3 result";
         },pool).whenComplete((r,e)->{
             System.out.println("f3的结果是：" + r);
             System.out.println(e);
         });
         /**
-         * allOf(CompletableFuture...)
-         * 使用此方法可以阻塞线程
+         * 使用此方法阻塞此次执行，等待所有线程完成后再执行后面的逻辑
          */
-        //CompletableFuture.allOf(f1,f2,f3);
-        pool.shutdown();
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(f1, f2, f3);
+        allOf.join();
+        
         System.out.println("主线程执行结束......");
 
+    }
+
+    public static String method1(ExecutorService pool) throws ExecutionException, InterruptedException {
+
+        //String result = f1.get();
+        return "";
+    }
+
+    public static Integer method2(ExecutorService pool) throws ExecutionException, InterruptedException {
+        CompletableFuture<Integer> f2 =  CompletableFuture.supplyAsync(()->{
+            System.out.println("f2开始执行......");
+            return 100;
+        },pool).whenComplete((r,e)->{
+            System.out.println("f2的结果是：" + r);
+            System.out.println(e);
+        });
+        return f2.get();
+    }
+
+    public static String method3(ExecutorService pool) throws ExecutionException, InterruptedException {
+        CompletableFuture<String> f3 =  CompletableFuture.supplyAsync(()->{
+            System.out.println("f3开始执行......");
+            //int i = 1/0;
+            return "f3 result";
+        },pool).whenComplete((r,e)->{
+            System.out.println("f3的结果是：" + r);
+            System.out.println(e);
+        });
+        return f3.get();
     }
 }
